@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "D:\\GoetheGameJamGithub\\GameJamGoethe2022\\game jam.csproj": {}
+    "C:\\Users\\Ruxi\\OneDrive\\Documents\\GitHub\\GameJamGoethe2022\\game jam.csproj": {}
   },
   "projects": {
-    "D:\\GoetheGameJamGithub\\GameJamGoethe2022\\game jam.csproj": {
+    "C:\\Users\\Ruxi\\OneDrive\\Documents\\GitHub\\GameJamGoethe2022\\game jam.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GoetheGameJamGithub\\GameJamGoethe2022\\game jam.csproj",
+        "projectUniqueName": "C:\\Users\\Ruxi\\OneDrive\\Documents\\GitHub\\GameJamGoethe2022\\game jam.csproj",
         "projectName": "game jam",
-        "projectPath": "D:\\GoetheGameJamGithub\\GameJamGoethe2022\\game jam.csproj",
-        "packagesPath": "C:\\Users\\teoio\\.nuget\\packages\\",
-        "outputPath": "D:\\GoetheGameJamGithub\\GameJamGoethe2022\\.mono\\temp\\obj\\",
+        "projectPath": "C:\\Users\\Ruxi\\OneDrive\\Documents\\GitHub\\GameJamGoethe2022\\game jam.csproj",
+        "packagesPath": "C:\\Users\\Ruxi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Ruxi\\OneDrive\\Documents\\GitHub\\GameJamGoethe2022\\.mono\\temp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\teoio\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Ruxi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net472"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
