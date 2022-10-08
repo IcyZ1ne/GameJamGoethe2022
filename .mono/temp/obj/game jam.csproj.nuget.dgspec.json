@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\teoio\\Documents\\gmjm2022\\game jam.csproj": {}
+    "D:\\GoetheGameJamGithub\\GameJamGoethe2022\\game jam.csproj": {}
   },
   "projects": {
-    "C:\\Users\\teoio\\Documents\\gmjm2022\\game jam.csproj": {
+    "D:\\GoetheGameJamGithub\\GameJamGoethe2022\\game jam.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\teoio\\Documents\\gmjm2022\\game jam.csproj",
+        "projectUniqueName": "D:\\GoetheGameJamGithub\\GameJamGoethe2022\\game jam.csproj",
         "projectName": "game jam",
-        "projectPath": "C:\\Users\\teoio\\Documents\\gmjm2022\\game jam.csproj",
+        "projectPath": "D:\\GoetheGameJamGithub\\GameJamGoethe2022\\game jam.csproj",
         "packagesPath": "C:\\Users\\teoio\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\teoio\\Documents\\gmjm2022\\.mono\\temp\\obj\\",
+        "outputPath": "D:\\GoetheGameJamGithub\\GameJamGoethe2022\\.mono\\temp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\teoio\\AppData\\Roaming\\NuGet\\NuGet.Config"
