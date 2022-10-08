@@ -1,63 +1,117 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scene/caracter.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scene/caracter2.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scene/ground.tscn" type="PackedScene" id=3]
+[ext_resource path="res://arta/background_glacial_mountains.png" type="Texture" id=2]
+[ext_resource path="res://arta/TileMap.png" type="Texture" id=3]
 [ext_resource path="res://scripturi/CameraScript.cs" type="Script" id=4]
-[ext_resource path="res://arta/hospital_tile.png" type="Texture" id=5]
+
+[sub_resource type="ConvexPolygonShape2D" id=1]
+points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=2]
+points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
+
+[sub_resource type="TileSet" id=3]
+0/name = "TileMap.png 0"
+0/texture = ExtResource( 3 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 192, 96, 32, 32 )
+0/tile_mode = 1
+0/autotile/bitmask_mode = 1
+0/autotile/bitmask_flags = [ Vector2( 0, 0 ), 176, Vector2( 0, 1 ), 178, Vector2( 0, 2 ), 50, Vector2( 0, 3 ), 48, Vector2( 1, 0 ), 184, Vector2( 1, 1 ), 186, Vector2( 1, 2 ), 58, Vector2( 1, 3 ), 56, Vector2( 2, 0 ), 152, Vector2( 2, 1 ), 154, Vector2( 2, 2 ), 26, Vector2( 2, 3 ), 24, Vector2( 3, 0 ), 144, Vector2( 3, 1 ), 146, Vector2( 3, 2 ), 18, Vector2( 3, 3 ), 16, Vector2( 4, 0 ), 187, Vector2( 4, 1 ), 250, Vector2( 5, 0 ), 190, Vector2( 5, 1 ), 442 ]
+0/autotile/icon_coordinate = Vector2( 0, 0 )
+0/autotile/tile_size = Vector2( 16, 16 )
+0/autotile/spacing = 0
+0/autotile/occluder_map = [  ]
+0/autotile/navpoly_map = [  ]
+0/autotile/priority_map = [  ]
+0/autotile/z_index_map = [  ]
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
+1/name = "TileMap.png 1"
+1/texture = ExtResource( 3 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 192, 64, 96, 64 )
+1/tile_mode = 1
+1/autotile/bitmask_mode = 1
+1/autotile/bitmask_flags = [ Vector2( 0, 0 ), 432, Vector2( 0, 1 ), 438, Vector2( 0, 2 ), 54, Vector2( 0, 3 ), 48, Vector2( 1, 0 ), 504, Vector2( 1, 1 ), 511, Vector2( 1, 2 ), 63, Vector2( 1, 3 ), 56, Vector2( 2, 0 ), 216, Vector2( 2, 1 ), 219, Vector2( 2, 2 ), 27, Vector2( 2, 3 ), 24, Vector2( 3, 0 ), 144, Vector2( 3, 1 ), 146, Vector2( 3, 2 ), 18, Vector2( 3, 3 ), 16, Vector2( 4, 0 ), 255, Vector2( 4, 1 ), 507, Vector2( 5, 0 ), 447, Vector2( 5, 1 ), 510 ]
+1/autotile/icon_coordinate = Vector2( 0, 0 )
+1/autotile/tile_size = Vector2( 16, 16 )
+1/autotile/spacing = 0
+1/autotile/occluder_map = [  ]
+1/autotile/navpoly_map = [  ]
+1/autotile/priority_map = [  ]
+1/autotile/z_index_map = [  ]
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shape_offset = Vector2( 0, 0 )
+1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+1/shape_one_way = false
+1/shape_one_way_margin = 0.0
+1/shapes = [  ]
+1/z_index = 0
+2/name = "TileMap.png 2"
+2/texture = ExtResource( 3 )
+2/tex_offset = Vector2( 0, 0 )
+2/modulate = Color( 1, 1, 1, 1 )
+2/region = Rect2( 288, 64, 96, 64 )
+2/tile_mode = 1
+2/autotile/bitmask_mode = 1
+2/autotile/bitmask_flags = [ Vector2( 0, 0 ), 432, Vector2( 0, 1 ), 438, Vector2( 0, 2 ), 54, Vector2( 0, 3 ), 48, Vector2( 1, 0 ), 504, Vector2( 1, 1 ), 511, Vector2( 1, 2 ), 63, Vector2( 1, 3 ), 56, Vector2( 2, 0 ), 216, Vector2( 2, 1 ), 219, Vector2( 2, 2 ), 27, Vector2( 2, 3 ), 24, Vector2( 3, 0 ), 144, Vector2( 3, 1 ), 146, Vector2( 3, 2 ), 18, Vector2( 3, 3 ), 16, Vector2( 4, 0 ), 255, Vector2( 4, 1 ), 507, Vector2( 5, 0 ), 447, Vector2( 5, 1 ), 510 ]
+2/autotile/icon_coordinate = Vector2( 0, 0 )
+2/autotile/tile_size = Vector2( 16, 16 )
+2/autotile/spacing = 0
+2/autotile/occluder_map = [  ]
+2/autotile/navpoly_map = [  ]
+2/autotile/priority_map = [  ]
+2/autotile/z_index_map = [  ]
+2/occluder_offset = Vector2( 0, 0 )
+2/navigation_offset = Vector2( 0, 0 )
+2/shape_offset = Vector2( 0, 0 )
+2/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+2/shape = SubResource( 1 )
+2/shape_one_way = false
+2/shape_one_way_margin = 1.0
+2/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 1 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 2 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 2 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+2/z_index = 0
 
 [node name="Node2D" type="Node2D"]
 
 [node name="Caracter1" parent="." instance=ExtResource( 1 )]
 position = Vector2( 131, 55 )
 
-[node name="StaticBody2D" parent="." instance=ExtResource( 3 )]
-position = Vector2( 161, 191 )
-scale = Vector2( 5, 1 )
-
-[node name="StaticBody2D2" parent="." instance=ExtResource( 3 )]
-position = Vector2( 289, 544 )
-scale = Vector2( 1, 10 )
-
-[node name="StaticBody2D3" parent="." instance=ExtResource( 3 )]
-position = Vector2( 963, 830 )
-scale = Vector2( 100, 1 )
-
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 script = ExtResource( 4 )
 Caracter1Path = NodePath("../Caracter1")
-Caracter2Path = NodePath("../Caracter2")
+Caracter2Path = NodePath("../Caracter1")
 
-[node name="HospitalTile" type="Sprite" parent="."]
-position = Vector2( 33, 191 )
-scale = Vector2( 4, 4 )
-texture = ExtResource( 5 )
+[node name="BackgroundGlacialMountains" type="Sprite" parent="."]
+scale = Vector2( 5, 5 )
+texture = ExtResource( 2 )
 
-[node name="HospitalTile2" type="Sprite" parent="."]
-position = Vector2( 97, 191 )
-scale = Vector2( 4, 4 )
-texture = ExtResource( 5 )
-
-[node name="HospitalTile3" type="Sprite" parent="."]
-position = Vector2( 161, 191 )
-scale = Vector2( 4, 4 )
-texture = ExtResource( 5 )
-
-[node name="HospitalTile4" type="Sprite" parent="."]
-position = Vector2( 225, 191 )
-scale = Vector2( 4, 4 )
-texture = ExtResource( 5 )
-
-[node name="HospitalTile5" type="Sprite" parent="."]
-position = Vector2( 289, 191 )
-scale = Vector2( 4, 4 )
-texture = ExtResource( 5 )
-
-[node name="HospitalTile6" type="Sprite" parent="."]
-position = Vector2( 353, 191 )
-scale = Vector2( 4, 4 )
-texture = ExtResource( 5 )
-
-[node name="Caracter2" parent="." instance=ExtResource( 2 )]
-position = Vector2( 253, 66 )
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource( 3 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( 2162664, 2, 0, 2162665, 2, 1, 2162666, 2, 1, 2162667, 2, 1, 2162668, 2, 1, 2162669, 2, 1, 2162670, 2, 1, 2162671, 2, 1, 2162672, 2, 1, 2162673, 2, 1, 2162674, 2, 1, 2162675, 2, 1, 2162676, 2, 1, 2162677, 2, 1, 2162678, 2, 1, 2162679, 2, 1, 2162680, 2, 1, 2162681, 2, 1, 2162682, 2, 1, 2162683, 2, 1, 2162684, 2, 1, 2162685, 2, 1, 2162686, 2, 1, 2162687, 2, 1, 2097152, 2, 1, 2097153, 2, 1, 2097154, 2, 1, 2097155, 2, 1, 2097156, 2, 1, 2097157, 2, 1, 2097158, 2, 1, 2097159, 2, 1, 2097160, 2, 1, 2097161, 2, 1, 2097162, 2, 1, 2097163, 2, 1, 2097164, 2, 1, 2097165, 2, 1, 2097166, 2, 1, 2097167, 2, 1, 2097168, 2, 1, 2097169, 2, 1, 2097170, 2, 1, 2097171, 2, 1, 2097172, 2, 1, 2097173, 2, 1, 2097174, 2, 1, 2097175, 2, 2, 2228200, 2, 131072, 2228201, 2, 131073, 2228202, 2, 131073, 2228203, 2, 131073, 2228204, 2, 131073, 2228205, 2, 131073, 2228206, 2, 131073, 2228207, 2, 131073, 2228208, 2, 131073, 2228209, 2, 131073, 2228210, 2, 131073, 2228211, 2, 131073, 2228212, 2, 131073, 2228213, 2, 131073, 2228214, 2, 131073, 2228215, 2, 131073, 2228216, 2, 131073, 2228217, 2, 131073, 2228218, 2, 131073, 2228219, 2, 131073, 2228220, 2, 131073, 2228221, 2, 131073, 2228222, 2, 131073, 2228223, 2, 131073, 2162688, 2, 131073, 2162689, 2, 131073, 2162690, 2, 131073, 2162691, 2, 131073, 2162692, 2, 131073, 2162693, 2, 131073, 2162694, 2, 131073, 2162695, 2, 131073, 2162696, 2, 131073, 2162697, 2, 131073, 2162698, 2, 131073, 2162699, 2, 131073, 2162700, 2, 131073, 2162701, 2, 131073, 2162702, 2, 131073, 2162703, 2, 131073, 2162704, 2, 131073, 2162705, 2, 131073, 2162706, 2, 131073, 2162707, 2, 131073, 2162708, 2, 131073, 2162709, 2, 131073, 2162710, 2, 131073, 2162711, 2, 131074 )

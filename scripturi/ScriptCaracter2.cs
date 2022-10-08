@@ -10,7 +10,6 @@ public class ScriptCaracter2 : KinematicBody2D
 	private Vector2 Velocity = Vector2.Zero;
 	private int LastDir = 1;
 	private float Speed = 300f;
-	private float JumpStrength = 1000f;
 	private float Gravity = 4500f;
 
 	public override void _Ready()
@@ -35,16 +34,8 @@ public class ScriptCaracter2 : KinematicBody2D
 		Velocity.y += Gravity * delta;
 
 		bool IsFalling = Velocity.y > 0f && !(IsOnFloor());
-		bool IsJumping = Input.IsActionJustPressed("sus") && IsOnFloor();
-		bool IsJumpCancelled = Input.IsActionJustReleased("sus") && Velocity.y < 0f;
 		bool IsIdling = IsOnFloor() && Mathf.IsZeroApprox(Velocity.x);
 		bool IsRunning = IsOnFloor() && !(Mathf.IsZeroApprox(Velocity.x));
-
-		if (IsJumping == true) {
-			Velocity.y = -JumpStrength;
-		} else if (IsJumpCancelled == true) {
-			Velocity.y = 0;
-		}
 
 		Velocity = MoveAndSlide(Velocity,UpDirection);
 
