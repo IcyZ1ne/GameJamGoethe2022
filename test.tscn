@@ -9,5 +9,5 @@
 position = Vector2( 538, 231 )
 
 [node name="CharacterA1" type="Sprite" parent="."]
-position = Vector2( 364, 250 )
+position = Vector2( 333, -64 )
 texture = ExtResource( 2 )
