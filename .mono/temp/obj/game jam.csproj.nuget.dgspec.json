@@ -1,0 +1,45 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\teoio\\Documents\\gmjm2022\\game jam.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\teoio\\Documents\\gmjm2022\\game jam.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\teoio\\Documents\\gmjm2022\\game jam.csproj",
+        "projectName": "game jam",
+        "projectPath": "C:\\Users\\teoio\\Documents\\gmjm2022\\game jam.csproj",
+        "packagesPath": "C:\\Users\\teoio\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\teoio\\Documents\\gmjm2022\\.mono\\temp\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\teoio\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net472"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net472": {
+            "targetAlias": "net472",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net472": {
+          "targetAlias": "net472",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

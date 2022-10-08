@@ -1,0 +1,9 @@
+C:\Users\teoio\Documents\gmjm2022\.mono\temp\obj\Debug\game jam.csproj.AssemblyReference.cache
+C:\Users\teoio\Documents\gmjm2022\.mono\temp\obj\Debug\game jam.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\teoio\Documents\gmjm2022\.mono\temp\obj\Debug\game jam.AssemblyInfoInputs.cache
+C:\Users\teoio\Documents\gmjm2022\.mono\temp\obj\Debug\game jam.AssemblyInfo.cs
+C:\Users\teoio\Documents\gmjm2022\.mono\temp\obj\Debug\game jam.csproj.CoreCompileInputs.cache
+C:\Users\teoio\Documents\gmjm2022\.mono\temp\bin\Debug\game jam.dll
+C:\Users\teoio\Documents\gmjm2022\.mono\temp\bin\Debug\game jam.pdb
+C:\Users\teoio\Documents\gmjm2022\.mono\temp\obj\Debug\game jam.dll
+C:\Users\teoio\Documents\gmjm2022\.mono\temp\obj\Debug\game jam.pdb
