@@ -1,17 +1,63 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scene/caracter.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scene/caracter2.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scene/ground.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scripturi/CameraScript.cs" type="Script" id=4]
+[ext_resource path="res://arta/hospital_tile.png" type="Texture" id=5]
 
 [node name="Node2D" type="Node2D"]
 
-[node name="KinematicBody2D" parent="." instance=ExtResource( 1 )]
-position = Vector2( 466, 76 )
+[node name="Caracter1" parent="." instance=ExtResource( 1 )]
+position = Vector2( 131, 55 )
 
 [node name="StaticBody2D" parent="." instance=ExtResource( 3 )]
-position = Vector2( 512, 343 )
-scale = Vector2( 20, 1 )
+position = Vector2( 161, 191 )
+scale = Vector2( 5, 1 )
 
-[node name="KinematicBody2D2" parent="." instance=ExtResource( 2 )]
-position = Vector2( 245, 134 )
+[node name="StaticBody2D2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 289, 544 )
+scale = Vector2( 1, 10 )
+
+[node name="StaticBody2D3" parent="." instance=ExtResource( 3 )]
+position = Vector2( 963, 830 )
+scale = Vector2( 100, 1 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+script = ExtResource( 4 )
+Caracter1Path = NodePath("../Caracter1")
+Caracter2Path = NodePath("../Caracter2")
+
+[node name="HospitalTile" type="Sprite" parent="."]
+position = Vector2( 33, 191 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 5 )
+
+[node name="HospitalTile2" type="Sprite" parent="."]
+position = Vector2( 97, 191 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 5 )
+
+[node name="HospitalTile3" type="Sprite" parent="."]
+position = Vector2( 161, 191 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 5 )
+
+[node name="HospitalTile4" type="Sprite" parent="."]
+position = Vector2( 225, 191 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 5 )
+
+[node name="HospitalTile5" type="Sprite" parent="."]
+position = Vector2( 289, 191 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 5 )
+
+[node name="HospitalTile6" type="Sprite" parent="."]
+position = Vector2( 353, 191 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 5 )
+
+[node name="Caracter2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 253, 66 )

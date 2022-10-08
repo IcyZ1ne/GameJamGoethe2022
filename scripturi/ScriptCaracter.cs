@@ -3,55 +3,61 @@ using System;
 
 public class ScriptCaracter : KinematicBody2D
 {
-	private Vector2 direction;
-	[Export]
-	private float MoveSpeed=500;
-	[Export]
-	private float Gravity=90;
-	[Export]
-	private float MaxFalSpeed=1000;
-	[Export]
-	private float MinFallSpeed=5;
-	[Export]
-	private float JumpForce=1000;
-	Sprite Sprite;
+	Node2D node2D;
+	Vector2 StartScale = new Vector2(1,1);
 	AnimationPlayer animationPlayer;
+	private Vector2 UpDirection = Vector2.Up;
+	private Vector2 Velocity = Vector2.Zero;
+	private int LastDir = 1;
+	private float Speed = 300f;
+	private float JumpStrength = 1000f;
+	private float Gravity = 4500f;
 
-	
 	public override void _Ready()
 	{
-		Sprite = (Sprite)GetNode("Sprite");
+		node2D = (Node2D)GetNode("Node2D");
 		animationPlayer = (AnimationPlayer)GetNode("AnimationPlayer");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(float delta)
 	{
-		//gravitatia jucatorului
-		direction.y += Gravity;
-		if (direction.y > MaxFalSpeed) {
-			direction.y = MaxFalSpeed;
-		}
-		if (IsOnFloor()) {
-			direction.y = MinFallSpeed;
-		}
+		float HorizontalDirection = (
+			Input.GetActionStrength("ui_right")
+			- Input.GetActionStrength("ui_left")
+		);
 
-		//controlale caracterului
-		direction.x = Input.GetActionStrength("ui_right") - Input.GetActionStrength("ui_left");
-		direction.x *= MoveSpeed;
-
-		//saritura caracter
-		if (IsOnFloor() && Input.IsActionJustPressed("ui_accept")) {
-			direction.y -= JumpForce;
+		if (HorizontalDirection > 0 || HorizontalDirection < 0) {
+			LastDir = (int)HorizontalDirection;
 		}
 
-		//rotind caracterul
-		if(direction.x>0) {
-			Sprite.FlipH = false;
-		} else if (direction.x<0) {
-			Sprite.FlipH = true;
+		Velocity.x = HorizontalDirection * Speed;
+		Velocity.y += Gravity * delta;
+
+		bool IsFalling = Velocity.y > 0f && !(IsOnFloor());
+		bool IsJumping = Input.IsActionJustPressed("ui_accept") && IsOnFloor();
+		bool IsJumpCancelled = Input.IsActionJustReleased("ui_accept") && Velocity.y < 0f;
+		bool IsIdling = IsOnFloor() && Mathf.IsZeroApprox(Velocity.x);
+		bool IsRunning = IsOnFloor() && !(Mathf.IsZeroApprox(Velocity.x));
+
+		if (IsJumping == true) {
+			Velocity.y = -JumpStrength;
+		} else if (IsJumpCancelled == true) {
+			Velocity.y = 0;
 		}
 
-		direction = MoveAndSlide(direction,Vector2.Up);
+		Velocity = MoveAndSlide(Velocity,UpDirection);
+
+		if (!(Mathf.IsZeroApprox(Velocity.x))) {
+			node2D.Scale = node2D.Scale.LinearInterpolate(new Vector2(Mathf.Sign(Velocity.x) * StartScale.x,1),.18f);
+		} else if (Mathf.IsZeroApprox(Velocity.x) && node2D.Scale.x != 1) {
+			node2D.Scale = new Vector2(1*LastDir,1);
+		}
+
+		if (IsRunning) {
+			animationPlayer.Play("animatie_mers_1");
+		} else if (IsIdling) {
+			animationPlayer.Play("animatie_idle_1");
+		}
 	}
 }
