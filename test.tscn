@@ -10,3 +10,4 @@ position = Vector2( 466, 76 )
 
 [node name="StaticBody2D" parent="." instance=ExtResource( 2 )]
 position = Vector2( 512, 343 )
+scale = Vector2( 15.96, 1 )
