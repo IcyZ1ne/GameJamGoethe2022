@@ -9,9 +9,10 @@ public class ScriptCaracter : KinematicBody2D
 	private Vector2 UpDirection = Vector2.Up;
 	private Vector2 Velocity = Vector2.Zero;
 	private int LastDir = 1;
-	private float Speed = 300f;
-	private float JumpStrength = 1000f;
-	private float Gravity = 4500f;
+	private float Speed = 400f;
+	private float JumpStrength = 800f;
+	private float Gravity = 4000f;
+	private int Jumps = 0;
 
 	public override void _Ready()
 	{
@@ -35,12 +36,13 @@ public class ScriptCaracter : KinematicBody2D
 		Velocity.y += Gravity * delta;
 
 		bool IsFalling = Velocity.y > 0f && !(IsOnFloor());
-		bool IsJumping = Input.IsActionJustPressed("ui_accept") && IsOnFloor();
+		bool IsJumping = Input.IsActionJustPressed("ui_accept") && (Jumps) != 1;
 		bool IsJumpCancelled = Input.IsActionJustReleased("ui_accept") && Velocity.y < 0f;
 		bool IsIdling = IsOnFloor() && Mathf.IsZeroApprox(Velocity.x);
 		bool IsRunning = IsOnFloor() && !(Mathf.IsZeroApprox(Velocity.x));
 
 		if (IsJumping == true) {
+			Jumps += 1;
 			Velocity.y = -JumpStrength;
 		} else if (IsJumpCancelled == true) {
 			Velocity.y = 0;
@@ -55,8 +57,10 @@ public class ScriptCaracter : KinematicBody2D
 		}
 
 		if (IsRunning) {
+			Jumps = 0;
 			animationPlayer.Play("animatie_mers_1");
 		} else if (IsIdling) {
+			Jumps = 0;
 			animationPlayer.Play("animatie_idle_1");
 		}
 	}

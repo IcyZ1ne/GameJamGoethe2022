@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scripturi/CameraScript.cs" type="Script" id=1]
+
+[node name="Camera2D" type="Camera2D"]
+current = true
+script = ExtResource( 1 )
+Caracter1Path = NodePath("../Caracter1")
+Caracter2Path = NodePath("../Caracter1")
+ZoomMinim = 2.0

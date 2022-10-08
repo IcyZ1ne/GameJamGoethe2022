@@ -10,7 +10,8 @@ public class CameraScript : Godot.Camera2D
     private KinematicBody2D Caracter1;
     private KinematicBody2D Caracter2;
     private const float VitezaCamera = 7.0f;
-    private const float ZoomMinim = .6f;
+    [Export]
+    private float ZoomMinim = .6f;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
