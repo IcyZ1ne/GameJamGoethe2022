@@ -16,3 +16,12 @@ D:\GoetheGameJamGithub\GameJamGoethe2022\.mono\temp\obj\Debug\game jam.AssemblyI
 D:\GoetheGameJamGithub\GameJamGoethe2022\.mono\temp\obj\Debug\game jam.csproj.CoreCompileInputs.cache
 D:\GoetheGameJamGithub\GameJamGoethe2022\.mono\temp\obj\Debug\game jam.dll
 D:\GoetheGameJamGithub\GameJamGoethe2022\.mono\temp\obj\Debug\game jam.pdb
+C:\Users\Ruxi\OneDrive\Documents\GitHub\GameJamGoethe2022\.mono\temp\bin\Debug\game jam.dll
+C:\Users\Ruxi\OneDrive\Documents\GitHub\GameJamGoethe2022\.mono\temp\bin\Debug\game jam.pdb
+C:\Users\Ruxi\OneDrive\Documents\GitHub\GameJamGoethe2022\.mono\temp\obj\Debug\game jam.csproj.AssemblyReference.cache
+C:\Users\Ruxi\OneDrive\Documents\GitHub\GameJamGoethe2022\.mono\temp\obj\Debug\game jam.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ruxi\OneDrive\Documents\GitHub\GameJamGoethe2022\.mono\temp\obj\Debug\game jam.AssemblyInfoInputs.cache
+C:\Users\Ruxi\OneDrive\Documents\GitHub\GameJamGoethe2022\.mono\temp\obj\Debug\game jam.AssemblyInfo.cs
+C:\Users\Ruxi\OneDrive\Documents\GitHub\GameJamGoethe2022\.mono\temp\obj\Debug\game jam.csproj.CoreCompileInputs.cache
+C:\Users\Ruxi\OneDrive\Documents\GitHub\GameJamGoethe2022\.mono\temp\obj\Debug\game jam.dll
+C:\Users\Ruxi\OneDrive\Documents\GitHub\GameJamGoethe2022\.mono\temp\obj\Debug\game jam.pdb
