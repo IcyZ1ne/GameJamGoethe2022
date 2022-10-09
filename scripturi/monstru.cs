@@ -34,7 +34,7 @@ public class monstru : Area2D
             if (Finish == false) {
                 GetTree().ReloadCurrentScene();
             } else {
-                GD.Print("next");
+                GetTree().ChangeScene("res://scene/Nivel15.tscn");
             }
         }
     }

@@ -7,9 +7,6 @@ public class CameraScript : Godot.Camera2D
     private NodePath Caracter1Path;
     [Export]
     private NodePath Caracter2Path;
-    [Export]
-    private NodePath Area2DPath;
-    private Area2D area2D;
     private KinematicBody2D Caracter1;
     private KinematicBody2D Caracter2;
     private const float VitezaCamera = 7.0f;
@@ -21,7 +18,6 @@ public class CameraScript : Godot.Camera2D
     {
         Caracter1 = GetNode<KinematicBody2D>(Caracter1Path);
         Caracter2 = GetNode<KinematicBody2D>(Caracter2Path);
-        area2D = GetNode<Area2D>(Area2DPath);
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -15,12 +15,13 @@ public class Nivel1 : Node2D
         Caracter3 = (KinematicBody2D)GetNode("Caracter3");
         muzica = (AudioStreamPlayer)GetNode("AudioStreamPlayer");
         muzica.Play();
+        intuneric.Visible = true;
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {
-        intuneric.Color = new Color(0,0,0,map(Caracter3.GlobalPosition.x,-1803.0f,3103.0f,0.0f,1.0f));
+        intuneric.Color = new Color(0,0,0,map(Caracter3.GlobalPosition.x,-1803.0f,3603.0f,0.0f,1.0f));
     }
 
     float map(float x, float in_min, float in_max, float out_min, float out_max) {
