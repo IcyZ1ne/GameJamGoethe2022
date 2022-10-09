@@ -3,9 +3,14 @@ using System;
 
 public class ScriptCaracter : KinematicBody2D
 {
+	[Export]
+	private string animatie_idle;
+	[Export]
+	private string animatie_mers;
 	Node2D node2D;
-	Vector2 StartScale = new Vector2(1,1);
 	AnimationPlayer animationPlayer;
+	Particles2D particles2D;
+	Vector2 StartScale = new Vector2(1,1);
 	private Vector2 UpDirection = Vector2.Up;
 	private Vector2 Velocity = Vector2.Zero;
 	private int LastDir = 1;
@@ -18,6 +23,7 @@ public class ScriptCaracter : KinematicBody2D
 	{
 		node2D = (Node2D)GetNode("Node2D");
 		animationPlayer = (AnimationPlayer)GetNode("AnimationPlayer");
+		particles2D = (Particles2D)GetNode("Node2D/Particles2D");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -48,7 +54,17 @@ public class ScriptCaracter : KinematicBody2D
 			Velocity.y = 0;
 		}
 
-		Velocity = MoveAndSlide(Velocity,UpDirection);
+		Velocity = MoveAndSlide(Velocity,UpDirection,false,4,Mathf.Pi/4f,false);
+
+		// int sc = GetSlideCount();
+		// if (sc > 0) {
+		// 	for (int i = 0; i < sc; i++) {
+		// 		Node body = GetSlideCollision(i);
+		// 		// if (body.Name == "Carucior") {
+
+		// 		// }
+		// 	}
+		// }
 
 		if (!(Mathf.IsZeroApprox(Velocity.x))) {
 			node2D.Scale = node2D.Scale.LinearInterpolate(new Vector2(Mathf.Sign(Velocity.x) * StartScale.x,1),.18f);
@@ -57,11 +73,13 @@ public class ScriptCaracter : KinematicBody2D
 		}
 
 		if (IsRunning) {
+			particles2D.Emitting = true;
 			Jumps = 0;
-			animationPlayer.Play("animatie_mers_1");
+			animationPlayer.Play(animatie_mers);
 		} else if (IsIdling) {
+			particles2D.Emitting = false;
 			Jumps = 0;
-			animationPlayer.Play("animatie_idle_1");
+			animationPlayer.Play(animatie_idle);
 		}
 	}
 }

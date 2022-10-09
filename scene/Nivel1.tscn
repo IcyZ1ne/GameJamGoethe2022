@@ -1,0 +1,230 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://scene/ground.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scene/caracter3.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scene/monstru.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scene/Camera.tscn" type="PackedScene" id=4]
+[ext_resource path="res://arta/hospital_bg.png" type="Texture" id=5]
+[ext_resource path="res://arta/conasdasdasd.png" type="Texture" id=6]
+[ext_resource path="res://arta/hospital_bg_doctor.png" type="Texture" id=7]
+[ext_resource path="res://arta/hospital_tile.png" type="Texture" id=8]
+[ext_resource path="res://arta/dirt_tiles.png" type="Texture" id=9]
+[ext_resource path="res://arta/dulap_spital.png" type="Texture" id=10]
+[ext_resource path="res://arta/dulap_spital2.png" type="Texture" id=11]
+[ext_resource path="res://scene/Carucior.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scripturi/Nivel1.cs" type="Script" id=13]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+void fragment() {
+	vec4 color = texture(TEXTURE, UV);
+	COLOR = vec4(1.0 - color.rgb, color.a);
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+
+[sub_resource type="OccluderPolygon2D" id=5]
+polygon = PoolVector2Array( -871, 200, -835, 204, -836, 366, -870, 371 )
+
+[sub_resource type="ConvexPolygonShape2D" id=10]
+points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
+
+[sub_resource type="TileSet" id=4]
+0/name = "dirt_tiles.png 0"
+0/texture = ExtResource( 9 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 16, 16 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
+1/name = "hospital_tile.png 1"
+1/texture = ExtResource( 8 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 0, 0, 16, 16 )
+1/tile_mode = 0
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shape_offset = Vector2( 0, 0 )
+1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+1/shape = SubResource( 10 )
+1/shape_one_way = false
+1/shape_one_way_margin = 1.0
+1/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 10 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+1/z_index = 0
+
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 30, 54 )
+
+[sub_resource type="RectangleShape2D" id=12]
+extents = Vector2( 60, 180 )
+
+[node name="Node2D" type="Node2D"]
+material = SubResource( 2 )
+script = ExtResource( 13 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = -3199.0
+margin_top = -1188.0
+margin_right = 4684.0
+margin_bottom = 1812.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_left = -1887.0
+margin_top = 120.0
+margin_right = 3113.0
+margin_bottom = 480.0
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 2
+
+[node name="HospitalBg" type="Sprite" parent="."]
+position = Vector2( 4073, 300 )
+texture = ExtResource( 5 )
+
+[node name="HospitalBg2" type="Sprite" parent="."]
+position = Vector2( -2207, 300 )
+texture = ExtResource( 5 )
+
+[node name="HospitalBgDoctor" type="Sprite" parent="."]
+position = Vector2( 3433, 300 )
+texture = ExtResource( 7 )
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( -1567, 300 )
+texture = ExtResource( 6 )
+energy = 0.7
+shadow_enabled = true
+
+[node name="Light2D2" type="Light2D" parent="."]
+position = Vector2( -927, 300 )
+texture = ExtResource( 6 )
+energy = 0.7
+shadow_enabled = true
+
+[node name="Light2D3" type="Light2D" parent="."]
+position = Vector2( -287, 300 )
+texture = ExtResource( 6 )
+energy = 0.7
+shadow_enabled = true
+
+[node name="Light2D4" type="Light2D" parent="."]
+position = Vector2( 353, 300 )
+texture = ExtResource( 6 )
+energy = 0.7
+shadow_enabled = true
+
+[node name="Light2D5" type="Light2D" parent="."]
+position = Vector2( 993, 300 )
+texture = ExtResource( 6 )
+energy = 0.7
+shadow_enabled = true
+
+[node name="Light2D6" type="Light2D" parent="."]
+position = Vector2( 1633, 300 )
+texture = ExtResource( 6 )
+energy = 0.7
+shadow_enabled = true
+
+[node name="Light2D7" type="Light2D" parent="."]
+position = Vector2( 2273, 300 )
+texture = ExtResource( 6 )
+energy = 0.7
+shadow_enabled = true
+
+[node name="Light2D8" type="Light2D" parent="."]
+position = Vector2( 2913, 300 )
+texture = ExtResource( 6 )
+energy = 0.7
+shadow_enabled = true
+
+[node name="Camera2D" parent="." instance=ExtResource( 4 )]
+Caracter1Path = NodePath("../Caracter3")
+Caracter2Path = NodePath("../Caracter3")
+ZoomMinim = 0.6
+
+[node name="Golem2" parent="." instance=ExtResource( 3 )]
+position = Vector2( -3082, 164 )
+monitorable = false
+TintaPath = NodePath("../Caracter3")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Golem2"]
+visible = false
+position = Vector2( 854, -285 )
+occluder = SubResource( 5 )
+
+[node name="TileMap" type="TileMap" parent="."]
+scale = Vector2( 5, 5 )
+tile_set = SubResource( 4 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( 458720, 1, 0, 458721, 1, 0, 458722, 1, 0, 458723, 1, 0, 458724, 1, 0, 458725, 1, 0, 458726, 1, 0, 458727, 1, 0, 458728, 1, 0, 458729, 1, 0, 458730, 1, 0, 458731, 1, 0, 458732, 1, 0, 458733, 1, 0, 458734, 1, 0, 458735, 1, 0, 458736, 1, 0, 458737, 1, 0, 458738, 1, 0, 458739, 1, 0, 458740, 1, 0, 458741, 1, 0, 458742, 1, 0, 458743, 1, 0, 458744, 1, 0, 458745, 1, 0, 458746, 1, 0, 458747, 1, 0, 458748, 1, 0, 458749, 1, 0, 458750, 1, 0, 458751, 1, 0, 393216, 1, 0, 393217, 1, 0, 393218, 1, 0, 393219, 1, 0, 393220, 1, 0, 393221, 1, 0, 393222, 1, 0, 393223, 1, 0, 393224, 1, 0, 393225, 1, 0, 393226, 1, 0, 393227, 1, 0, 393228, 1, 0, 393229, 1, 0, 393230, 1, 0, 393231, 1, 0, 393232, 1, 0, 393233, 1, 0, 393234, 1, 0, 393235, 1, 0, 393236, 1, 0, 393237, 1, 0, 393238, 1, 0, 393239, 1, 0, 393240, 1, 0, 393241, 1, 0, 393242, 1, 0, 393243, 1, 0, 393244, 1, 0, 393245, 1, 0, 393246, 1, 0, 393247, 1, 0, 393248, 1, 0, 393249, 1, 0, 393250, 1, 0, 393251, 1, 0, 393252, 1, 0, 393253, 1, 0, 393254, 1, 0, 393255, 1, 0, 393256, 1, 0, 393257, 1, 0, 393258, 1, 0, 393259, 1, 0, 393260, 1, 0, 393261, 1, 0, 393262, 1, 0, 393263, 1, 0, 393264, 1, 0, 393265, 1, 0, 393266, 1, 0, 393267, 1, 0, 393268, 1, 0, 393269, 1, 0, 393270, 1, 0 )
+
+[node name="StaticBody2D" parent="." instance=ExtResource( 1 )]
+position = Vector2( 382, 88 )
+scale = Vector2( 150, 1 )
+
+[node name="StaticBody2D2" parent="." instance=ExtResource( 1 )]
+position = Vector2( -1851, 155 )
+scale = Vector2( 1, 30 )
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+position = Vector2( -1106, 402 )
+scale = Vector2( 1.5, 1.5 )
+
+[node name="DulapSpital" type="Sprite" parent="StaticBody2D3"]
+texture = ExtResource( 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+position = Vector2( 2, -2 )
+shape = SubResource( 11 )
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="."]
+position = Vector2( -627, 432 )
+rotation = 1.5708
+scale = Vector2( 1.5, 1.5 )
+
+[node name="DulapSpital2" type="Sprite" parent="StaticBody2D4"]
+texture = ExtResource( 11 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
+position = Vector2( 2, -2 )
+shape = SubResource( 11 )
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2( 3043, 382 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 0, -82 )
+shape = SubResource( 12 )
+
+[node name="Carucior" parent="." instance=ExtResource( 12 )]
+position = Vector2( -1247, -4 )
+
+[node name="Caracter3" parent="." instance=ExtResource( 2 )]
+position = Vector2( -1765, 347 )
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+margin_left = -3199.0
+margin_top = -1188.0
+margin_right = 4684.0
+margin_bottom = 1812.0
+color = Color( 0, 0, 0, 0 )
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

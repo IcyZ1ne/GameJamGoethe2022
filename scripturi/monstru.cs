@@ -6,8 +6,11 @@ public class monstru : Area2D
     [Export]
     private NodePath TintaPath;
     KinematicBody2D Tinta;
-    private float Speed = .5f;
+    [Export]
+    public float Speed = .1f;
     private float Time = 0f;
+    [Export]
+    public bool Finish = false;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready() {
@@ -27,6 +30,12 @@ public class monstru : Area2D
 
 
     public void _on_Area2D_body_entered(Area2D area) {
-        GD.Print("lets");
+        if (area.Name == Tinta.Name) {
+            if (Finish == false) {
+                GetTree().ReloadCurrentScene();
+            } else {
+                GD.Print("next");
+            }
+        }
     }
 }
