@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://city.png" type="Texture" id=1]
+[ext_resource path="res://scene/caracter.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scene/caracter2.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scene/Camera.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scene/ground.tscn" type="PackedScene" id=5]
+
+[node name="Nivel2" type="Node2D"]
+__meta__ = {
+"_edit_vertical_guides_": [ -350.0 ]
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_right = 1920.0
+margin_bottom = 1080.0
+texture = ExtResource( 1 )
+stretch_mode = 1
+
+[node name="Camera2D" parent="." instance=ExtResource( 4 )]
+position = Vector2( 882, 478 )
+Caracter1Path = NodePath("../KinematicBody2D")
+Caracter2Path = NodePath("../KinematicBody2D2")
+ZoomMinim = 0.5
+
+[node name="KinematicBody2D" parent="." instance=ExtResource( 3 )]
+position = Vector2( 795, 526 )
+
+[node name="KinematicBody2D2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 546, 517 )
+
+[node name="StaticBody2D" parent="." instance=ExtResource( 5 )]
+position = Vector2( 382, 823 )
+scale = Vector2( 100, 1 )

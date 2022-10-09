@@ -219,12 +219,14 @@ position = Vector2( -1247, -4 )
 
 [node name="Caracter3" parent="." instance=ExtResource( 2 )]
 position = Vector2( -1765, 347 )
+animatie_idle = null
+animatie_mers = null
 
 [node name="ColorRect2" type="ColorRect" parent="."]
-margin_left = -3199.0
-margin_top = -1188.0
-margin_right = 4684.0
-margin_bottom = 1812.0
+margin_left = -3236.0
+margin_top = -1189.0
+margin_right = 4647.0
+margin_bottom = 1811.0
 color = Color( 0, 0, 0, 0 )
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
