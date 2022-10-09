@@ -42,8 +42,8 @@ public class ScriptCaracter : KinematicBody2D
 		Velocity.y += Gravity * delta;
 
 		bool IsFalling = Velocity.y > 0f && !(IsOnFloor());
-		bool IsJumping = Input.IsActionJustPressed("ui_accept") && (Jumps) != 1;
-		bool IsJumpCancelled = Input.IsActionJustReleased("ui_accept") && Velocity.y < 0f;
+		bool IsJumping = Input.IsActionJustPressed("ui_up") && (Jumps) != 1;
+		bool IsJumpCancelled = Input.IsActionJustReleased("ui_up") && Velocity.y < 0f;
 		bool IsIdling = IsOnFloor() && Mathf.IsZeroApprox(Velocity.x);
 		bool IsRunning = IsOnFloor() && !(Mathf.IsZeroApprox(Velocity.x));
 

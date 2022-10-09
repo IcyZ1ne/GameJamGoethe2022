@@ -1,3 +1,301 @@
-[gd_scene format=2]
+[gd_scene load_steps=25 format=2]
+
+[ext_resource path="res://arta/house.png" type="Texture" id=1]
+[ext_resource path="res://arta/housetiles.png" type="Texture" id=2]
+[ext_resource path="res://arta/hospital_tile.png" type="Texture" id=3]
+[ext_resource path="res://arta/dirt_tiles.png" type="Texture" id=4]
+[ext_resource path="res://scene/ground.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scene/caracter2.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scene/Camera.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scene/caracter.tscn" type="PackedScene" id=8]
+[ext_resource path="res://arta/camera_foto_digitala.png" type="Texture" id=9]
+[ext_resource path="res://arta/foto_familie.png" type="Texture" id=10]
+[ext_resource path="res://arta/colier_.png" type="Texture" id=11]
+[ext_resource path="res://arta/sticla_parfum.png" type="Texture" id=12]
+[ext_resource path="res://arta/dulap.png" type="Texture" id=13]
+[ext_resource path="res://scripturi/Nivel3.cs" type="Script" id=14]
+[ext_resource path="res://depixel/DePixelHalbfett.otf" type="DynamicFontData" id=15]
+
+[sub_resource type="ConvexPolygonShape2D" id=20]
+points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=21]
+points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
+
+[sub_resource type="TileSet" id=12]
+0/name = "dirt_tiles.png 0"
+0/texture = ExtResource( 4 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 16, 16 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
+1/name = "hospital_tile.png 1"
+1/texture = ExtResource( 3 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 0, 0, 16, 16 )
+1/tile_mode = 0
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shape_offset = Vector2( 0, 0 )
+1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+1/shape = SubResource( 20 )
+1/shape_one_way = false
+1/shape_one_way_margin = 1.0
+1/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 20 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+1/z_index = 0
+2/name = "housetiles.png 2"
+2/texture = ExtResource( 2 )
+2/tex_offset = Vector2( 0, 0 )
+2/modulate = Color( 1, 1, 1, 1 )
+2/region = Rect2( 0, 0, 16, 16 )
+2/tile_mode = 0
+2/occluder_offset = Vector2( 0, 0 )
+2/navigation_offset = Vector2( 0, 0 )
+2/shape_offset = Vector2( 0, 0 )
+2/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+2/shape = SubResource( 21 )
+2/shape_one_way = false
+2/shape_one_way_margin = 1.0
+2/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 21 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+2/z_index = 0
+
+[sub_resource type="RectangleShape2D" id=14]
+extents = Vector2( 56, 50 )
+
+[sub_resource type="ParticlesMaterial" id=19]
+emission_shape = 2
+emission_box_extents = Vector3( 30, 20, 1 )
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 10.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 3.0
+
+[sub_resource type="RectangleShape2D" id=15]
+extents = Vector2( 14, 28 )
+
+[sub_resource type="RectangleShape2D" id=16]
+extents = Vector2( 22, 34 )
+
+[sub_resource type="RectangleShape2D" id=17]
+extents = Vector2( 40, 20 )
+
+[sub_resource type="DynamicFont" id=18]
+size = 15
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 15 )
 
 [node name="Node2D" type="Node2D"]
+script = ExtResource( 14 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = -3186.0
+margin_top = -1192.0
+margin_right = 4697.0
+margin_bottom = 1808.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_left = -800.0
+margin_top = 40.0
+margin_right = 3077.0
+margin_bottom = 400.0
+texture = ExtResource( 1 )
+stretch_mode = 2
+
+[node name="TileMap" type="TileMap" parent="."]
+scale = Vector2( 5, 5 )
+tile_set = SubResource( 12 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( 393205, 2, 0, 393206, 2, 0, 393207, 2, 0, 393208, 2, 0, 393209, 2, 0, 393210, 2, 0, 393211, 2, 0, 393212, 2, 0, 393213, 2, 0, 393214, 2, 0, 393215, 2, 0, 327680, 2, 0, 327681, 2, 0, 327682, 2, 0, 327683, 2, 0, 327684, 2, 0, 327685, 2, 0, 327686, 2, 0, 327687, 2, 0, 327688, 2, 0, 327689, 2, 0, 327690, 2, 0, 327691, 2, 0, 327692, 2, 0, 327693, 2, 0, 327694, 2, 0, 327695, 2, 0, 327696, 2, 0, 327697, 2, 0, 327698, 2, 0, 327699, 2, 0, 327700, 2, 0, 327701, 2, 0, 327702, 2, 0, 327703, 2, 0, 327704, 2, 0, 327705, 2, 0, 327706, 2, 0, 327707, 2, 0, 327708, 2, 0, 327709, 2, 0, 327710, 2, 0, 327711, 2, 0, 327712, 2, 0, 327713, 2, 0, 327714, 2, 0, 327715, 2, 0, 327716, 2, 0, 327717, 2, 0, 327718, 2, 0 )
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+margin_left = -860.0
+margin_top = 40.0
+margin_right = -800.0
+margin_bottom = 400.0
+color = Color( 0.286275, 0.196078, 0.180392, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="."]
+margin_left = 3077.0
+margin_top = 40.0
+margin_right = 3137.0
+margin_bottom = 400.0
+color = Color( 0.286275, 0.196078, 0.180392, 1 )
+
+[node name="StaticBody2D" parent="." instance=ExtResource( 5 )]
+position = Vector2( 3108, 228 )
+scale = Vector2( 1, 50 )
+
+[node name="StaticBody2D3" parent="." instance=ExtResource( 5 )]
+position = Vector2( 664, 8 )
+scale = Vector2( 80, 1 )
+
+[node name="StaticBody2D2" parent="." instance=ExtResource( 5 )]
+position = Vector2( -833, 230 )
+scale = Vector2( 1, 50 )
+
+[node name="Camera2D" parent="." instance=ExtResource( 7 )]
+position = Vector2( 1162, -230 )
+Caracter1Path = NodePath("../KinematicBody2D")
+Caracter2Path = NodePath("../KinematicBody2D2")
+ZoomMinim = 0.5
+
+[node name="Area2D" type="Area2D" parent="." groups=["obiecte"]]
+position = Vector2( -240, 217 )
+scale = Vector2( 1.3, 1.3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="FotoFamilie" type="Sprite" parent="Area2D"]
+texture = ExtResource( 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 4, 2 )
+shape = SubResource( 14 )
+
+[node name="Particles2D" type="Particles2D" parent="Area2D"]
+process_material = SubResource( 19 )
+
+[node name="Dulap" type="Sprite" parent="."]
+position = Vector2( 1347, 356 )
+texture = ExtResource( 13 )
+
+[node name="Area2D2" type="Area2D" parent="." groups=["obiecte"]]
+position = Vector2( 1346, 298 )
+scale = Vector2( 0.8, 0.8 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="SticlaParfum" type="Sprite" parent="Area2D2"]
+texture = ExtResource( 12 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+position = Vector2( 2, -4 )
+shape = SubResource( 15 )
+
+[node name="Particles2D" type="Particles2D" parent="Area2D2"]
+process_material = SubResource( 19 )
+
+[node name="Area2D3" type="Area2D" parent="." groups=["obiecte"]]
+position = Vector2( 410, 342 )
+rotation = 1.309
+scale = Vector2( 0.5, 0.5 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Colier" type="Sprite" parent="Area2D3"]
+texture = ExtResource( 11 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D3"]
+position = Vector2( 10, -6 )
+shape = SubResource( 16 )
+
+[node name="Particles2D" type="Particles2D" parent="Area2D3"]
+process_material = SubResource( 19 )
+
+[node name="Area2D4" type="Area2D" parent="." groups=["obiecte"]]
+position = Vector2( 2336, 359 )
+rotation = 0.369832
+scale = Vector2( 0.5, 0.5 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CameraFotoDigitala" type="Sprite" parent="Area2D4"]
+texture = ExtResource( 9 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D4"]
+position = Vector2( 0, -4 )
+shape = SubResource( 17 )
+
+[node name="Particles2D" type="Particles2D" parent="Area2D4"]
+process_material = SubResource( 19 )
+
+[node name="Label" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 206.0
+margin_top = 323.0
+margin_right = 641.0
+margin_bottom = 374.0
+custom_fonts/font = SubResource( 18 )
+text = "This was her birthday present from us. She wore it at special events."
+autowrap = true
+
+[node name="Label2" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 1131.0
+margin_top = 271.0
+margin_right = 1566.0
+margin_bottom = 322.0
+custom_fonts/font = SubResource( 18 )
+text = "This perfume was her absolute favorite. It still smells like her in this room."
+autowrap = true
+
+[node name="Label3" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = -442.0
+margin_top = 195.0
+margin_right = -7.0
+margin_bottom = 246.0
+custom_fonts/font = SubResource( 18 )
+text = "Photo of the three of us on vacation... before she got sick. "
+autowrap = true
+
+[node name="Label4" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 2120.0
+margin_top = 327.0
+margin_right = 2555.0
+margin_bottom = 378.0
+custom_fonts/font = SubResource( 18 )
+text = "She loved to take pictures. There are still some photos of us on it..."
+autowrap = true
+
+[node name="KinematicBody2D" parent="." instance=ExtResource( 8 )]
+position = Vector2( 708, 114 )
+
+[node name="KinematicBody2D2" parent="." instance=ExtResource( 6 )]
+position = Vector2( 833, 127 )
+
+[node name="ColorRect4" type="ColorRect" parent="."]
+margin_left = -3186.0
+margin_top = -1192.0
+margin_right = 4697.0
+margin_bottom = 1808.0
+color = Color( 0, 0, 0, 0 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[connection signal="body_entered" from="Area2D" to="." method="a"]
+[connection signal="body_entered" from="Area2D2" to="." method="_on_Area2D2_body_entered"]
+[connection signal="body_entered" from="Area2D3" to="." method="_on_Area2D3_body_entered"]
+[connection signal="body_entered" from="Area2D4" to="." method="_on_Area2D4_body_entered"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://scene/ground.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scene/caracter3.tscn" type="PackedScene" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://arta/character_A1.png" type="Texture" id=15]
 [ext_resource path="res://arta/character_B1.png" type="Texture" id=16]
 [ext_resource path="res://arta/ginger_doctor_2.png" type="Texture" id=17]
+[ext_resource path="res://arta/caruciorra.png" type="Texture" id=18]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -32,7 +33,7 @@ shader = SubResource( 1 )
 [sub_resource type="OccluderPolygon2D" id=5]
 polygon = PoolVector2Array( -871, 200, -835, 204, -836, 366, -870, 371 )
 
-[sub_resource type="ConvexPolygonShape2D" id=10]
+[sub_resource type="ConvexPolygonShape2D" id=14]
 points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
 
 [sub_resource type="TileSet" id=4]
@@ -60,20 +61,23 @@ points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
 1/navigation_offset = Vector2( 0, 0 )
 1/shape_offset = Vector2( 0, 0 )
 1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-1/shape = SubResource( 10 )
+1/shape = SubResource( 14 )
 1/shape_one_way = false
 1/shape_one_way_margin = 1.0
 1/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 10 ),
+"shape": SubResource( 14 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 1/z_index = 0
 
 [sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 30, 54 )
+
+[sub_resource type="OccluderPolygon2D" id=13]
+polygon = PoolVector2Array( 21.4008, 51.4048, -32.729, 52.6364, -45.3036, 36.2219, -46.0236, -37.2804 )
 
 [sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 60, 180 )
@@ -202,6 +206,23 @@ texture = ExtResource( 10 )
 position = Vector2( 2, -2 )
 shape = SubResource( 11 )
 
+[node name="StaticBody2D6" type="StaticBody2D" parent="."]
+position = Vector2( -272, 468 )
+rotation = 2.25675
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="DulapSpital" type="Sprite" parent="StaticBody2D6"]
+position = Vector2( 4, -12 )
+texture = ExtResource( 18 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D6"]
+polygon = PoolVector2Array( -46.6667, -40, -24.6667, -46.6667, 7.33334, -4, 39.3333, 28.6667, 21.3333, 51.3333, -9.33334, 50.6667, -42.6667, 40 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="StaticBody2D6"]
+occluder = SubResource( 13 )
+
 [node name="StaticBody2D4" type="StaticBody2D" parent="."]
 position = Vector2( -627, 432 )
 rotation = 1.5708
@@ -227,6 +248,56 @@ shape = SubResource( 12 )
 [node name="Carucior" parent="." instance=ExtResource( 12 )]
 position = Vector2( -1247, -4 )
 
+[node name="StaticBody2D7" type="StaticBody2D" parent="."]
+position = Vector2( 1260, 468 )
+rotation = 2.25675
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="DulapSpital" type="Sprite" parent="StaticBody2D7"]
+position = Vector2( 4, -12 )
+texture = ExtResource( 18 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D7"]
+polygon = PoolVector2Array( -46.6667, -40, -24.6667, -46.6667, 7.33334, -4, 39.3333, 28.6667, 21.3333, 51.3333, -9.33334, 50.6667, -42.6667, 40 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="StaticBody2D7"]
+occluder = SubResource( 13 )
+
+[node name="StaticBody2D8" type="StaticBody2D" parent="."]
+position = Vector2( 905, 432 )
+rotation = 1.5708
+scale = Vector2( 1.5, 1.5 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="DulapSpital2" type="Sprite" parent="StaticBody2D8"]
+texture = ExtResource( 11 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D8"]
+position = Vector2( 2, -2 )
+shape = SubResource( 11 )
+
+[node name="StaticBody2D11" type="StaticBody2D" parent="."]
+position = Vector2( 2439, 432 )
+rotation = 1.5708
+scale = Vector2( 1.5, 1.5 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="DulapSpital2" type="Sprite" parent="StaticBody2D11"]
+texture = ExtResource( 11 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D11"]
+position = Vector2( 2, -2 )
+shape = SubResource( 11 )
+
+[node name="Carucior3" parent="." instance=ExtResource( 12 )]
+position = Vector2( 1819, -4 )
+
 [node name="Caracter3" parent="." instance=ExtResource( 2 )]
 position = Vector2( -1765, 347 )
 
@@ -234,7 +305,7 @@ position = Vector2( -1765, 347 )
 stream = ExtResource( 14 )
 
 [node name="GingerDoctor2" type="Sprite" parent="."]
-position = Vector2( 3445, 419 )
+position = Vector2( 3349, 419 )
 texture = ExtResource( 17 )
 
 [node name="CharacterA1" type="Sprite" parent="."]

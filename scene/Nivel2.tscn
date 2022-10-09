@@ -1,34 +1,573 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=22 format=2]
 
-[ext_resource path="res://city.png" type="Texture" id=1]
+[ext_resource path="res://arta/gard.png" type="Texture" id=1]
 [ext_resource path="res://scene/caracter.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scene/caracter2.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scene/Camera.tscn" type="PackedScene" id=4]
+[ext_resource path="res://arta/city.png" type="Texture" id=4]
 [ext_resource path="res://scene/ground.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scripturi/Nivel2.cs" type="Script" id=6]
+[ext_resource path="res://arta/arrow.png" type="Texture" id=7]
+[ext_resource path="res://arta/dirt_tiles.png" type="Texture" id=8]
+[ext_resource path="res://arta/Untitled.png" type="Texture" id=9]
+[ext_resource path="res://arta/pui.png" type="Texture" id=10]
+[ext_resource path="res://arta/brick.png" type="Texture" id=11]
+[ext_resource path="res://arta/ciob_2.png" type="Texture" id=12]
+[ext_resource path="res://arta/vaza.png" type="Texture" id=13]
+[ext_resource path="res://arta/bucata_de_beton.png" type="Texture" id=14]
+[ext_resource path="res://new_shadermaterial.tres" type="Material" id=15]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 32, 32 )
+
+[sub_resource type="OccluderPolygon2D" id=4]
+polygon = PoolVector2Array( -32, -32, 32, -32, 32, 31.5, -32.5, 32 )
+
+[sub_resource type="Shader" id=2]
+code = "/*
+Shader from Godot Shaders - the free shader library.
+godotshaders.com/shader/god-rays
+
+Feel free to use, improve and change this shader according to your needs
+and consider sharing the modified result on godotshaders.com.
+*/
+
+shader_type canvas_item;
+
+uniform float angle = -0.3;
+uniform float position = -0.2;
+uniform float spread : hint_range(0.0, 1.0) = 0.5;
+uniform float cutoff : hint_range(-1.0, 1.0) = 0.1;
+uniform float falloff : hint_range(0.0, 1.0) = 0.2;
+uniform float edge_fade : hint_range(0.0, 1.0) = 0.15;
+
+uniform float speed = 1.0;
+uniform float ray1_density = 8.0;
+uniform float ray2_density = 30.0;
+uniform float ray2_intensity : hint_range(0.0, 1.0) = 0.3;
+
+uniform vec4 color : hint_color = vec4(1.0, 0.9, 0.65, 0.8);
+
+uniform bool hdr = false;
+uniform float seed = 5.0;
+
+// Random and noise functions from Book of Shader's chapter on Noise.
+float random(vec2 _uv) {
+    return fract(sin(dot(_uv.xy,
+                         vec2(12.9898, 78.233))) *
+        43758.5453123);
+}
+
+float noise (in vec2 uv) {
+    vec2 i = floor(uv);
+    vec2 f = fract(uv);
+
+    // Four corners in 2D of a tile
+    float a = random(i);
+    float b = random(i + vec2(1.0, 0.0));
+    float c = random(i + vec2(0.0, 1.0));
+    float d = random(i + vec2(1.0, 1.0));
+
+
+    // Smooth Interpolation
+
+    // Cubic Hermine Curve. Same as SmoothStep()
+    vec2 u = f * f * (3.0-2.0 * f);
+
+    // Mix 4 coorners percentages
+    return mix(a, b, u.x) +
+            (c - a)* u.y * (1.0 - u.x) +
+            (d - b) * u.x * u.y;
+}
+
+mat2 rotate(float _angle){
+    return mat2(vec2(cos(_angle), -sin(_angle)),
+                vec2(sin(_angle), cos(_angle)));
+}
+
+vec4 screen(vec4 base, vec4 blend){
+	return 1.0 - (1.0 - base) * (1.0 - blend);
+}
+
+void fragment()
+{
+	
+	// Rotate, skew and move the UVs
+	vec2 transformed_uv = ( rotate(angle) * (UV - position) )  / ( (UV.y + spread) - (UV.y * spread) );
+	
+	// Animate the ray according the the new transformed UVs
+	vec2 ray1 = vec2(transformed_uv.x * ray1_density + sin(TIME * 0.1 * speed) * (ray1_density * 0.2) + seed, 1.0);
+	vec2 ray2 = vec2(transformed_uv.x * ray2_density + sin(TIME * 0.2 * speed) * (ray1_density * 0.2) + seed, 1.0);
+	
+	// Cut off the ray's edges
+	float cut = step(cutoff, transformed_uv.x) * step(cutoff, 1.0 - transformed_uv.x);
+	ray1 *= cut;
+	ray2 *= cut;
+	
+	// Apply the noise pattern (i.e. create the rays)
+	float rays;
+	
+	if (hdr){
+		// This is not really HDR, but check this to not clamp the two merged rays making 
+		// their values go over 1.0. Can make for some nice effect
+		rays = noise(ray1) + (noise(ray2) * ray2_intensity);
+	}
+	else{
+		 rays = clamp(noise(ray1) + (noise(ray2) * ray2_intensity), 0., 1.);
+	}
+	
+	// Fade out edges
+	rays *= smoothstep(0.0, falloff, (1.0 - UV.y)); // Bottom
+	rays *= smoothstep(0.0 + cutoff, edge_fade + cutoff, transformed_uv.x); // Left
+	rays *= smoothstep(0.0 + cutoff, edge_fade + cutoff, 1.0 - transformed_uv.x); // Right
+	
+	// Color to the rays
+	vec3 shine = vec3(rays) * color.rgb;
+
+	// Try different blending modes for a nicer effect. \"Screen\" is included in the code,
+	// but take a look at https://godotshaders.com/snippet/blending-modes/ for more.
+	// With \"Screen\" blend mode:
+	shine = screen(texture(SCREEN_TEXTURE, SCREEN_UV), vec4(color)).rgb;
+	
+	COLOR = vec4(shine, rays * color.a);
+}"
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = SubResource( 2 )
+shader_param/angle = 0.0
+shader_param/position = 0.0
+shader_param/spread = 1.0
+shader_param/cutoff = -1.0
+shader_param/falloff = 1.0
+shader_param/edge_fade = 0.15
+shader_param/speed = 1.0
+shader_param/ray1_density = 25.0
+shader_param/ray2_density = 50.0
+shader_param/ray2_intensity = 1.0
+shader_param/color = Color( 1, 0, 0, 1 )
+shader_param/hdr = true
+shader_param/seed = 3.0
+
+[sub_resource type="CircleShape2D" id=5]
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 958, 142 )
 
 [node name="Nivel2" type="Node2D"]
+script = ExtResource( 6 )
 __meta__ = {
 "_edit_vertical_guides_": [ -350.0 ]
 }
 
+[node name="ColorRect2" type="ColorRect" parent="."]
+margin_left = -512.0
+margin_top = -422.0
+margin_right = 2488.0
+margin_bottom = 1578.0
+color = Color( 0.686275, 0.760784, 0.8, 1 )
+
 [node name="TextureRect" type="TextureRect" parent="."]
 margin_right = 1920.0
 margin_bottom = 1080.0
-texture = ExtResource( 1 )
-stretch_mode = 1
+texture = ExtResource( 4 )
+expand = true
 
-[node name="Camera2D" parent="." instance=ExtResource( 4 )]
+[node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 882, 478 )
-Caracter1Path = NodePath("../KinematicBody2D")
-Caracter2Path = NodePath("../KinematicBody2D2")
-ZoomMinim = 0.5
+offset = Vector2( 78, 62 )
+current = true
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+margin_top = 600.0
+margin_right = 1921.0
+margin_bottom = 960.0
+texture = ExtResource( 1 )
+stretch_mode = 2
 
 [node name="KinematicBody2D" parent="." instance=ExtResource( 3 )]
-position = Vector2( 795, 526 )
+position = Vector2( 928, 857 )
 
 [node name="KinematicBody2D2" parent="." instance=ExtResource( 2 )]
-position = Vector2( 546, 517 )
+position = Vector2( 679, 848 )
 
-[node name="StaticBody2D" parent="." instance=ExtResource( 5 )]
-position = Vector2( 382, 823 )
-scale = Vector2( 100, 1 )
+[node name="StaticBody2D" type="StaticBody2D" parent="." groups=["pamant"]]
+position = Vector2( 64, 1016 )
+scale = Vector2( 2, 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="StaticBody2D"]
+position = Vector2( -4.76837e-06, -4.76837e-07 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource( 1 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="StaticBody2D"]
+occluder = SubResource( 4 )
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="." groups=["pamant"]]
+position = Vector2( 192, 1016 )
+scale = Vector2( 2, 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="StaticBody2D2"]
+position = Vector2( -4.76837e-06, -4.76837e-07 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+shape = SubResource( 1 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="StaticBody2D2"]
+occluder = SubResource( 4 )
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="." groups=["pamant"]]
+position = Vector2( 320, 1016 )
+scale = Vector2( 2, 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="StaticBody2D3"]
+position = Vector2( -4.76837e-06, -4.76837e-07 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+shape = SubResource( 1 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="StaticBody2D3"]
+occluder = SubResource( 4 )
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="." groups=["pamant"]]
+position = Vector2( 448, 1016 )
+scale = Vector2( 2, 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="StaticBody2D4"]
+position = Vector2( -4.76837e-06, -4.76837e-07 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
+shape = SubResource( 1 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="StaticBody2D4"]
+occluder = SubResource( 4 )
+
+[node name="StaticBody2D5" type="StaticBody2D" parent="." groups=["pamant"]]
+position = Vector2( 576, 1016 )
+scale = Vector2( 2, 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="StaticBody2D5"]
+position = Vector2( -4.76837e-06, -4.76837e-07 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D5"]
+shape = SubResource( 1 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="StaticBody2D5"]
+occluder = SubResource( 4 )
+
+[node name="StaticBody2D6" type="StaticBody2D" parent="." groups=["pamant"]]
+position = Vector2( 704, 1016 )
+scale = Vector2( 2, 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="StaticBody2D6"]
+position = Vector2( -4.76837e-06, -4.76837e-07 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D6"]
+shape = SubResource( 1 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="StaticBody2D6"]
+occluder = SubResource( 4 )
+
+[node name="StaticBody2D7" type="StaticBody2D" parent="." groups=["pamant"]]
+position = Vector2( 832, 1016 )
+scale = Vector2( 2, 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="StaticBody2D7"]
+position = Vector2( -4.76837e-06, -4.76837e-07 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D7"]
+shape = SubResource( 1 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="StaticBody2D7"]
+occluder = SubResource( 4 )
+
+[node name="StaticBody2D8" type="StaticBody2D" parent="." groups=["pamant"]]
+position = Vector2( 960, 1016 )
+scale = Vector2( 2, 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="StaticBody2D8"]
+position = Vector2( -4.76837e-06, -4.76837e-07 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D8"]
+shape = SubResource( 1 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="StaticBody2D8"]
+occluder = SubResource( 4 )
+
+[node name="StaticBody2D9" type="StaticBody2D" parent="." groups=["pamant"]]
+position = Vector2( 1088, 1016 )
+scale = Vector2( 2, 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="StaticBody2D9"]
+position = Vector2( -4.76837e-06, -4.76837e-07 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D9"]
+shape = SubResource( 1 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="StaticBody2D9"]
+occluder = SubResource( 4 )
+
+[node name="StaticBody2D10" type="StaticBody2D" parent="." groups=["pamant"]]
+position = Vector2( 1216, 1016 )
+scale = Vector2( 2, 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="StaticBody2D10"]
+position = Vector2( -4.76837e-06, -4.76837e-07 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D10"]
+shape = SubResource( 1 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="StaticBody2D10"]
+occluder = SubResource( 4 )
+
+[node name="StaticBody2D11" type="StaticBody2D" parent="." groups=["pamant"]]
+position = Vector2( 1344, 1016 )
+scale = Vector2( 2, 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="StaticBody2D11"]
+position = Vector2( -4.76837e-06, -4.76837e-07 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D11"]
+shape = SubResource( 1 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="StaticBody2D11"]
+occluder = SubResource( 4 )
+
+[node name="StaticBody2D12" type="StaticBody2D" parent="." groups=["pamant"]]
+position = Vector2( 1472, 1016 )
+scale = Vector2( 2, 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="StaticBody2D12"]
+position = Vector2( -4.76837e-06, -4.76837e-07 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D12"]
+shape = SubResource( 1 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="StaticBody2D12"]
+occluder = SubResource( 4 )
+
+[node name="StaticBody2D13" type="StaticBody2D" parent="." groups=["pamant"]]
+position = Vector2( 1600, 1016 )
+scale = Vector2( 2, 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="StaticBody2D13"]
+position = Vector2( -4.76837e-06, -4.76837e-07 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D13"]
+shape = SubResource( 1 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="StaticBody2D13"]
+occluder = SubResource( 4 )
+
+[node name="StaticBody2D14" type="StaticBody2D" parent="." groups=["pamant"]]
+position = Vector2( 1728, 1016 )
+scale = Vector2( 2, 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="StaticBody2D14"]
+position = Vector2( -4.76837e-06, -4.76837e-07 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D14"]
+shape = SubResource( 1 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="StaticBody2D14"]
+occluder = SubResource( 4 )
+
+[node name="StaticBody2D15" type="StaticBody2D" parent="." groups=["pamant"]]
+position = Vector2( 1856, 1016 )
+scale = Vector2( 2, 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="StaticBody2D15"]
+position = Vector2( -4.76837e-06, -4.76837e-07 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D15"]
+shape = SubResource( 1 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="StaticBody2D15"]
+occluder = SubResource( 4 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+material = SubResource( 3 )
+margin_left = 1920.0
+margin_top = 1080.0
+margin_right = 3840.0
+margin_bottom = 2160.0
+rect_rotation = 180.0
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="Timer2" type="Timer" parent="."]
+
+[node name="Arrow" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 321, 862 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 7 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="Tween2" type="Tween" parent="."]
+
+[node name="Tween3" type="Tween" parent="."]
+
+[node name="StaticBody2D16" parent="." instance=ExtResource( 5 )]
+position = Vector2( -32, 984 )
+scale = Vector2( 1, 30 )
+
+[node name="StaticBody2D17" parent="." instance=ExtResource( 5 )]
+position = Vector2( 1952, 935 )
+scale = Vector2( 1, 30 )
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( 951, 1611 )
+rotation = -3.14159
+texture = ExtResource( 9 )
+offset = Vector2( 0, 2000 )
+texture_scale = 5.0
+color = Color( 1, 0, 0, 1 )
+shadow_enabled = true
+
+[node name="Area2D" type="Area2D" parent="." groups=["chesti"]]
+visible = false
+position = Vector2( 500, 0 )
+scale = Vector2( 3, 3 )
+
+[node name="Pui" type="Sprite" parent="Area2D"]
+material = ExtResource( 15 )
+texture = ExtResource( 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 5 )
+
+[node name="Area2D2" type="Area2D" parent="." groups=["chesti"]]
+visible = false
+scale = Vector2( 3, 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+shape = SubResource( 5 )
+
+[node name="Ciob2" type="Sprite" parent="Area2D2"]
+material = ExtResource( 15 )
+scale = Vector2( 0.666667, 0.666667 )
+texture = ExtResource( 12 )
+
+[node name="Area2D3" type="Area2D" parent="." groups=["chesti"]]
+visible = false
+scale = Vector2( 3, 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D3"]
+shape = SubResource( 5 )
+
+[node name="BucataDeBeton" type="Sprite" parent="Area2D3"]
+material = ExtResource( 15 )
+scale = Vector2( 0.666667, 0.666667 )
+texture = ExtResource( 14 )
+
+[node name="Area2D4" type="Area2D" parent="." groups=["chesti"]]
+visible = false
+scale = Vector2( 3, 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D4"]
+shape = SubResource( 5 )
+
+[node name="Brick" type="Sprite" parent="Area2D4"]
+material = ExtResource( 15 )
+scale = Vector2( 0.666667, 0.666667 )
+texture = ExtResource( 11 )
+
+[node name="Area2D5" type="Area2D" parent="." groups=["chesti"]]
+visible = false
+scale = Vector2( 3, 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D5"]
+shape = SubResource( 5 )
+
+[node name="Vaza" type="Sprite" parent="Area2D5"]
+material = ExtResource( 15 )
+scale = Vector2( 0.666667, 0.666667 )
+texture = ExtResource( 13 )
+
+[node name="Area2D6" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D6"]
+position = Vector2( 960, 1339 )
+shape = SubResource( 6 )
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="Timer2" to="." method="_on_Timer2_timeout"]
+[connection signal="body_entered" from="Area2D6" to="." method="_on_Area2D6_body_entered"]
