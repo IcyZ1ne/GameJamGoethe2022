@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scripturi/Nivel15.cs" type="Script" id=1]
 [ext_resource path="res://depixel/DePixelHalbfett.otf" type="DynamicFontData" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://arta/hospital_bg_doctor.png" type="Texture" id=7]
 [ext_resource path="res://arta/hospital_tile.png" type="Texture" id=8]
 [ext_resource path="res://arta/dirt_tiles.png" type="Texture" id=9]
+[ext_resource path="res://denial.mp3" type="AudioStream" id=14]
 [ext_resource path="res://arta/character_A1.png" type="Texture" id=15]
 [ext_resource path="res://arta/character_B1.png" type="Texture" id=16]
 [ext_resource path="res://arta/ginger_doctor_2.png" type="Texture" id=17]
@@ -142,6 +143,12 @@ position = Vector2( 3426, 346 )
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 3 )
 
+[node name="Bula2" type="Sprite" parent="."]
+visible = false
+position = Vector2( 3436.38, 332 )
+scale = Vector2( 0.59275, 0.844444 )
+texture = ExtResource( 3 )
+
 [node name="Label" type="Label" parent="."]
 margin_left = 3312.0
 margin_top = 310.0
@@ -149,7 +156,18 @@ margin_right = 3548.0
 margin_bottom = 353.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 11 )
-text = "I'm afraid I bear bad news"
+text = "I'm afraid I bear bad news..."
+autowrap = true
+
+[node name="Label2" type="Label" parent="."]
+visible = false
+margin_left = 3302.0
+margin_top = 272.0
+margin_right = 3630.0
+margin_bottom = 361.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 11 )
+text = "Your mother has lost the battle with cancer. I'm so sorry for your loss."
 autowrap = true
 
 [node name="ColorRect2" type="ColorRect" parent="."]
@@ -161,3 +179,10 @@ margin_bottom = 1713.0
 color = Color( 0, 0, 0, 1 )
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )

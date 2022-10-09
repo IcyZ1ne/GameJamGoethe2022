@@ -10,6 +10,7 @@ public class Nivel2 : Node2D
     Tween tween2;
     Tween tween3;
     Sprite Alarma;
+    AudioStreamPlayer muzica;
     RandomNumberGenerator rng = new RandomNumberGenerator();
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -22,6 +23,9 @@ public class Nivel2 : Node2D
         // timer2 = (Timer)GetNode("Timer2");
         timer.Start();
         // timer2.Start();
+        
+        muzica = (AudioStreamPlayer)GetNode("AudioStreamPlayer");
+        muzica.Play();
     }
 
     public override void _Process(float delta)

@@ -1,8 +1,17 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://depixel/DePixelHalbfett.otf" type="DynamicFontData" id=1]
 [ext_resource path="res://arta/char.png" type="Texture" id=2]
 [ext_resource path="res://scripturi/MeniuPrincipal.cs" type="Script" id=3]
+[ext_resource path="res://arta/d52ee173147d4ef.png" type="Texture" id=4]
+[ext_resource path="res://arta/dlf.pt-arrow-keys-png-562394.png" type="Texture" id=5]
+[ext_resource path="res://arta/PngItem_2036779.png" type="Texture" id=6]
+
+[sub_resource type="DynamicFont" id=3]
+size = 80
+outline_size = 5
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 100
@@ -14,6 +23,10 @@ font_data = ExtResource( 1 )
 size = 55
 outline_size = 5
 outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 30
 font_data = ExtResource( 1 )
 
 [node name="Node2D" type="Node2D"]
@@ -30,6 +43,43 @@ margin_right = 1920.0
 margin_bottom = 1080.0
 texture = ExtResource( 2 )
 expand = true
+
+[node name="Dlfpt-arrow-keys-png-562394" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.690196 )
+position = Vector2( 306, 827 )
+texture = ExtResource( 5 )
+
+[node name="D52Ee173147D4Ef" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.690196 )
+position = Vector2( 1590, 955 )
+texture = ExtResource( 4 )
+
+[node name="PngItem2036779" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.690196 )
+position = Vector2( 1588, 693 )
+texture = ExtResource( 6 )
+
+[node name="Label" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0.690196 )
+margin_left = 39.0
+margin_top = 472.0
+margin_right = 638.0
+margin_bottom = 573.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "girl/mom"
+uppercase = true
+
+[node name="Label2" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0.690196 )
+margin_left = 1462.0
+margin_top = 459.0
+margin_right = 1716.0
+margin_bottom = 560.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "BOY"
+uppercase = true
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 margin_right = 1920.0
@@ -86,4 +136,31 @@ custom_fonts/font = SubResource( 1 )
 text = "Credits"
 flat = true
 
+[node name="ColorRect3" type="ColorRect" parent="."]
+visible = false
+margin_right = 1920.0
+margin_bottom = 1080.0
+color = Color( 0, 0, 0, 0 )
+
+[node name="Label3" type="Label" parent="."]
+visible = false
+margin_right = 1920.0
+margin_bottom = 1080.0
+custom_colors/font_color = Color( 1, 1, 1, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "Who are you?
+Do you know why you're here?
+It doesn't really matter. 
+We all feel the same. We all rejoice when happy. We all bleed when cut.
+When we lose someone we love, we find ourselves at the feet of the 5 Stages of Grief."
+align = 1
+valign = 1
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
 [connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/Button" to="." method="_on_Button_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://arta/house.png" type="Texture" id=1]
 [ext_resource path="res://arta/housetiles.png" type="Texture" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://arta/dulap.png" type="Texture" id=13]
 [ext_resource path="res://scripturi/Nivel3.cs" type="Script" id=14]
 [ext_resource path="res://depixel/DePixelHalbfett.otf" type="DynamicFontData" id=15]
+[ext_resource path="res://bargaining.mp3" type="AudioStream" id=16]
 
 [sub_resource type="ConvexPolygonShape2D" id=20]
 points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
@@ -107,6 +108,14 @@ extents = Vector2( 40, 20 )
 size = 15
 outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 15 )
+
+[sub_resource type="DynamicFont" id=22]
+size = 60
+font_data = ExtResource( 15 )
+
+[sub_resource type="DynamicFont" id=23]
+size = 20
 font_data = ExtResource( 15 )
 
 [node name="Node2D" type="Node2D"]
@@ -294,6 +303,29 @@ margin_bottom = 1808.0
 color = Color( 0, 0, 0, 0 )
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="Label5" type="Label" parent="."]
+margin_left = 609.0
+margin_top = 156.0
+margin_right = 1719.0
+margin_bottom = 313.0
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_fonts/font = SubResource( 22 )
+text = "bargaining"
+uppercase = true
+
+[node name="Label6" type="Label" parent="."]
+margin_left = 673.0
+margin_top = 227.0
+margin_right = 1783.0
+margin_bottom = 384.0
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_fonts/font = SubResource( 23 )
+text = "FIND YOUR MOM'S ITEMS."
+uppercase = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 16 )
 
 [connection signal="body_entered" from="Area2D" to="." method="a"]
 [connection signal="body_entered" from="Area2D2" to="." method="_on_Area2D2_body_entered"]

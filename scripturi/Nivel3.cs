@@ -13,6 +13,7 @@ public class Nivel3 : Node2D
     Label label3;
     Label label4;
     Tween tween;
+    AudioStreamPlayer muzica;
     ColorRect colorRect4;
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -27,6 +28,8 @@ public class Nivel3 : Node2D
         label4 = (Label)GetNode("Label4");
         tween = (Tween)GetNode("Tween");
         colorRect4 = (ColorRect)GetNode("ColorRect4");
+        muzica = (AudioStreamPlayer)GetNode("AudioStreamPlayer");
+        muzica.Play();
     }
 
     public void a(Area2D area) {
@@ -90,7 +93,7 @@ public class Nivel3 : Node2D
     }
 
     async void EndScene() {
-        tween.InterpolateProperty(colorRect4,"color",new Color(0,0,0,0),new Color(0,0,0,1),1,Tween.TransitionType.Linear,Tween.EaseType.InOut,10);
+        tween.InterpolateProperty(colorRect4,"color",new Color(0,0,0,0),new Color(0,0,0,1),1,Tween.TransitionType.Linear,Tween.EaseType.InOut,6);
         tween.Start();
         await ToSignal(tween,"tween_all_completed");
         GetTree().ChangeScene("res://scene/Nivel4.tscn");
